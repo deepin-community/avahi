@@ -1,0 +1,34 @@
+From: Michael Biebl <biebl@debian.org>
+Date: Sun, 5 Jun 2022 18:10:31 +0200
+Subject: Fix encoding of avahi-common/domain.h to be UTF-8
+
+spotted by lintian:
+
+W: libavahi-common-dev: national-encoding usr/include/avahi-common/domain.h
+N:
+N:   A file is not valid UTF-8.
+N:
+N:   Debian has used UTF-8 for many years. Support for national encodings is being phased out. This file probably appears to users
+N:   in mangled characters (also called mojibake).
+N:
+N:   Packaging control files must be encoded in valid UTF-8.
+N:
+N:   Please convert the file to UTF-8 using iconv or a similar tool.
+(cherry picked from commit 7ed99620a748b07e3eb1db2f4b97fcee06a9e4e3)
+---
+ avahi-common/domain.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/avahi-common/domain.h b/avahi-common/domain.h
+index a0dcd0f..c3995d3 100644
+--- a/avahi-common/domain.h
++++ b/avahi-common/domain.h
+@@ -33,7 +33,7 @@ AVAHI_C_DECL_BEGIN
+  * is calculated like this: RFC1034 mandates maximum length of FQDNs
+  * is 255. The maximum label length is 63. To minimize the number of
+  * (non-escaped) dots, we comprise our maximum-length domain name of
+- * four labels แ 63 characters plus three inner dots. Escaping the
++ * four labels รก 63 characters plus three inner dots. Escaping the
+  * four labels quadruples their length at maximum. An escaped domain
+  * name has the therefore the maximum length of 63*4*4+3=1011. A
+  * trailing NUL and perhaps two unnecessary dots leading and trailing

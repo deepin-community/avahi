@@ -7,3 +7,11 @@ fix-bytestring-decoding-for-proper-display.patch
 avahi-discover-Don-t-decode-unicode-strings-only-bytestri.patch
 Fetch-build-db-from-upstream-git.patch
 build-db-Use-the-same-database-format-that-the-C-code-exp.patch
+avahi-discover-Escape-strings-substituted-into-Pango-mark.patch
+Do-not-disable-timeout-cleanup-on-watch-cleanup.patch
+Fix-NULL-pointer-crashes-from-175.patch
+Fix-encoding-of-avahi-common-domain.h-to-be-UTF-8.patch
+Avoid-infinite-loop-in-avahi-daemon-by-handling-HUP-event.patch
+dbus-Use-non-deprecated-installation-path.patch
+Emit-error-if-requested-service-is-not-found.patch
+Fix-avahi-browse-Invalid-service-type.patch

@@ -1,3 +1,171 @@
+avahi (0.8-13) unstable; urgency=medium
+
+  * Team upload
+  * gir1.2-avahi-0.6: Make the Provides on gir1.2-avahicore-0.6 versioned.
+    This will allow it to satisfy versioned dependencies on
+    gir1.2-avahicore-0.6 (>= x).
+  * libavahi-gobject-dev: Add Provides for the included GIR XML.
+    To make cross-compiling and bootstrapping easier, the version of the
+    gobject-introspection mini-policy currently in experimental asks for
+    GIR XML to either be split into a gir1.2-x-y-dev package or have
+    Provides on that name, so that dependent packages can add that package
+    to their Build-Depends.
+  * gir1.2-avahi-0.6, libavahi-gobject-dev: Add ${gir:Provides}.
+    When built with the version of gobject-introspection currently in
+    experimental, this will generate a Provides equivalent to the ones that
+    are currently hard-coded.
+  * libavahi-gobject-dev: Add ${gir:Depends}.
+    Just for completeness: the only dependency is gir1.2-gobject-2.0, which
+    all GObject-Introspection-based tools are expected to pull in as a
+    dependency anyway.
+  * d/control, d/rules: Implement nogir build profile.
+    This allows src:avahi to be bootstrapped on new architectures before
+    gobject-introspection has been compiled, breaking a cyclic dependency:
+    gobject-introspection pulls in cairo, which indirectly Depends on
+    the non-GObject parts of avahi (via cups and ghostscript).
+    Disabling the entire libavahi-gobject-dev package is a bigger hammer
+    than we would normally use, but it avoids a trip through NEW to split
+    the package between C development files and a new gir1.2-avahi-0.6-dev
+    binary package. (Closes: #1055437)
+
+ -- Simon McVittie <smcv@debian.org>  Tue, 07 Nov 2023 10:54:25 +0000
+
+avahi (0.8-12) unstable; urgency=medium
+
+  * Team upload
+  * Install the systemd unit in /usr/lib/systemd/system.
+    This was allowed by Technical Committee resolution #1053901. avahi
+    has not usually been backported, so it doesn't seem important to make
+    backports trivial for this particular package.
+    Build-depend on debhelper (>= 13.11.6~) so that dh_installsystemd finds
+    the unit in its new location.
+  * d/control: Canonicalize order of build-dependencies.
+    No functional change.
+  * Build-depend on pkgconf instead of pkg-config
+  * d/tests: Add superficial autopkgtests for the -dev packages.
+    Linking a trivial executable to a library is a surprisingly effective
+    way to detect packaging errors like a missing dependency.
+
+ -- Simon McVittie <smcv@debian.org>  Fri, 20 Oct 2023 11:07:11 +0100
+
+avahi (0.8-11) unstable; urgency=medium
+
+  [ Josh Triplett ]
+  * Drop /etc/default/avahi-daemon entirely.
+    The only option in it hasn't been used since avahi-daemon 0.8-4 in 2021,
+    which removed the avahi-daemon-check-dns mechanism in favor of upstream
+    logic serving the same function. Nothing else in the package references
+    this at all.
+
+  [ Jeremy Bícha ]
+  * Build-Depend on dh-sequence-gir & dh-sequence-python3
+
+  [ Robert McQueen ]
+  * Fix browsing when invalid services present.
+    Import patch from Arch to prevent service browsing from aborting in the
+    middle if your network contains a device with an invalid service name.
+    See https://github.com/lathiat/avahi/issues/212 and
+    https://bugs.archlinux.org/task/71781
+
+  [ Michael Biebl ]
+  * Use default dh_autoreconf instead of calling ./autogen.sh.
+    Running ./autogen.sh before build causes common/Makefile.am to be
+    deleted during dh_auto_clean, resulting in a subsequent build failure.
+    Use the default dh_autoreconf sequence instead which doesn't trigger
+    this behaviour.
+    Fixes ftbfs-binary-after-build (Closes: #1049786)
+  * Clean up avahi-python/avahi/__pycache__/
+    Fixes ftbfs-source-after-build (Closes: #1044112)
+
+ -- Michael Biebl <biebl@debian.org>  Thu, 07 Sep 2023 21:43:48 +0200
+
+avahi (0.8-10) unstable; urgency=medium
+
+  [ Felix Geyer ]
+  * Remove dependency on bind9-host.
+    Originally added in #433030, no longer needed as the
+    avahi-daemon-check-dns.sh script is no longer shipped.
+
+  [ Michael Biebl ]
+  * Emit error if requested service is not found.
+    Fixes a potential local DoS where the avahi daemon could be crashed by
+    an unprivileged user via a D-Bus call.
+    (CVE-2023-1981, Closes: #1034594)
+  * Update watch file to get tarballs directly from avahi.org again.
+    The recent changes in GitHub broke the current watch file.
+    As new releases are again uploaded to avahi.org, get the release
+    tarballs from there.
+
+ -- Michael Biebl <biebl@debian.org>  Wed, 19 Apr 2023 13:51:49 +0200
+
+avahi (0.8-9) unstable; urgency=medium
+
+  [ Gioele Barabucci ]
+  * Install dbus policy in /usr instead of /etc (Closes: #1031550)
+
+ -- Michael Biebl <biebl@debian.org>  Sat, 18 Feb 2023 23:09:58 +0100
+
+avahi (0.8-8) unstable; urgency=medium
+
+  * Remove obsolete SysV init scripts
+  * Demote resolvconf to a Suggests for avahi-dnsconfd
+
+ -- Michael Biebl <biebl@debian.org>  Sun, 05 Feb 2023 14:21:18 +0100
+
+avahi (0.8-7) unstable; urgency=medium
+
+  [ Debian Janitor ]
+  * Remove constraints unnecessary since buster
+    * Build-Depends: Drop versioned constraint on intltool, libcap-dev,
+      libdaemon-dev, libdbus-1-dev and libglib2.0-dev.
+    * avahi-daemon: Drop versioned constraint on libnss-mdns in Recommends.
+    * libavahi-client-dev: Drop versioned constraint on libdbus-1-dev in
+      Depends.
+    * libavahi-compat-libdnssd1: Drop versioned constraint on libnss-mdns in
+      Recommends.
+    * Remove 3 maintscript entries from 2 files.
+    Changes-By: deb-scrub-obsolete
+
+  [ Michael Biebl ]
+  * Fix encoding of avahi-common/domain.h to be valid UTF-8
+  * Avoid infinite-loop in avahi-daemon by handling HUP event in client_work.
+    Fixes a local DoS that could be triggered by writing long lines to
+    /run/avahi-daemon/socket.
+    (CVE-2021-3468, Closes: #984938)
+  * Bump Standards-Version to 4.6.2
+  * Update homepage URL in debian/{copyright,control} and use https
+  * Remove obsolete migration code
+  * Drop obsolete Conflicts against zeroconf from avahi-autoipd
+  * Use execute_{after,before} instead of override where possible
+
+ -- Michael Biebl <biebl@debian.org>  Tue, 10 Jan 2023 09:33:02 +0100
+
+avahi (0.8-6) unstable; urgency=medium
+
+  [ Luca Boccassi ]
+  * avahi-daemon: depend on default-dbus-system-bus | dbus-system-bus.
+    This allows the reference implementation to be removed if using a
+    different system bus implementation such as dbus-broker.
+    [smcv: Adjust commit message]
+
+  [ Simon McVittie ]
+  * Add patch to fix display of URLs containing '&' in avahi-discover
+  * Standards-Version: 4.6.0 (no changes required)
+  * Use recommended debhelper compat level 13
+
+  [ Michael Biebl ]
+  * Do not disable timeout cleanup on watch cleanup.
+    This was causing timeouts to never be removed from the linked list that
+    tracks them, resulting in both memory and CPU usage to grow larger over
+    time. Thanks to Gustavo Noronha Silva (Closes: #993051)
+  * Drop obsolete lsb-base Depends
+  * Fix NULL pointer crashes when trying to resolve badly-formatted hostnames.
+    Fixes a local DoS in avahi-daemon that can be triggered by trying to
+    resolve badly-formatted hostnames on the /run/avahi-daemon/socket
+    interface. (CVE-2021-3502, Closes: #986018)
+
+ -- Michael Biebl <biebl@debian.org>  Sun, 05 Jun 2022 18:33:10 +0200
+
 avahi (0.8-5) unstable; urgency=medium
 
   * d/avahi-daemon.maintscript: Drop removal of symlink, they're not normal

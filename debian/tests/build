@@ -1,0 +1,58 @@
+#!/bin/sh
+set -eux
+
+package="$1"
+pc="${package%-dev}"
+pc="${pc#lib}"
+
+case "$package" in
+    (libavahi-client-dev)
+        ;;
+
+    (libavahi-compat-libdnssd-dev)
+        pc=avahi-compat-libdns_sd
+        ;;
+
+    (libavahi-core-dev)
+        ;;
+
+    (libavahi-glib-dev)
+        ;;
+
+    (libavahi-gobject-dev)
+        # the test program calls into GLib directly
+        pc="${pc} glib-2.0"
+        ;;
+
+    (libavahi-ui-gtk3-dev)
+        # the test program calls into GObject directly
+        pc="${pc} gobject-2.0"
+        ;;
+
+
+    (*)
+        echo "Unknown library $package"
+        exit 1
+        ;;
+
+    # libavahi-common doesn't have its own .pc file: it's an implementation
+    # detail of the other libraries, so we don't test it separately.
+esac
+
+WORKDIR=$(mktemp -d)
+trap 'rm -rf "${WORKDIR}"' 0 INT QUIT ABRT PIPE TERM
+cp "debian/tests/${package}.c" "$WORKDIR"
+cd "${WORKDIR}"
+
+if [ -n "${DEB_HOST_GNU_TYPE:-}" ]; then
+    CROSS_COMPILE="${DEB_HOST_GNU_TYPE}-"
+else
+    CROSS_COMPILE=
+fi
+
+# shellcheck disable=SC2046
+${CROSS_COMPILE}gcc -o "${package}" "${package}.c" $(${CROSS_COMPILE}pkgconf --cflags --libs ${pc})
+echo "build: OK"
+[ -x "${package}" ]
+"./${package}"
+echo "run: OK"

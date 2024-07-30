@@ -1,2 +1,2 @@
-version=3
-https://github.com/lathiat/avahi/releases/ .*/avahi-([\d\.]+)\.tar\.gz
+version=4
+https://avahi.org/download/@PACKAGE@@ANY_VERSION@@ARCHIVE_EXT@

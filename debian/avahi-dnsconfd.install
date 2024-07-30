@@ -1,5 +1,5 @@
 etc/avahi/avahi-dnsconfd.action
+usr/lib/systemd/system/avahi-dnsconfd.service
 usr/sbin/avahi-dnsconfd
 usr/share/man/man8/avahi-dnsconfd.8
 usr/share/man/man8/avahi-dnsconfd.action.8
-lib/systemd/system/avahi-dnsconfd.service

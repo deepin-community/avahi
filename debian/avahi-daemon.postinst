@@ -23,14 +23,13 @@ case "$1" in
     # Add the netdev group unless it's already there
     addgroup --quiet --system netdev || true
 
-    s="/etc/network/if-post-down.d/avahi-daemon.dpkg-backup"
-    if dpkg --compare-versions "$2" lt 0.8.5~ && [ -L "$s" ] ; then
-      rm -f "$s"
-    fi
-
     # Ask the bus to reload the config file
     if [ -x "/etc/init.d/dbus" ]; then
       invoke-rc.d dbus force-reload || true
+    fi
+
+    if dpkg --compare-versions "$2" lt-nl "0.8-8~"; then
+       update-rc.d -f avahi-daemon remove || true
     fi
   ;;
   abort-upgrade|abort-remove|abort-deconfigure)

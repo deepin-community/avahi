@@ -1,0 +1,29 @@
+Test-Command: debian/tests/build libavahi-client-dev
+Features: test-name=libavahi-client-dev
+Restrictions: allow-stderr, superficial
+Depends: build-essential, libavahi-client-dev, pkgconf
+
+Test-Command: debian/tests/build libavahi-compat-libdnssd-dev
+Features: test-name=libavahi-compat-libdnssd-dev
+Restrictions: allow-stderr, superficial
+Depends: build-essential, libavahi-compat-libdnssd-dev, pkgconf
+
+Test-Command: debian/tests/build libavahi-core-dev
+Features: test-name=libavahi-core-dev
+Restrictions: allow-stderr, superficial
+Depends: build-essential, libavahi-core-dev, pkgconf
+
+Test-Command: debian/tests/build libavahi-glib-dev
+Features: test-name=libavahi-glib-dev
+Restrictions: allow-stderr, superficial
+Depends: build-essential, libavahi-glib-dev, pkgconf
+
+Test-Command: debian/tests/build libavahi-gobject-dev
+Features: test-name=libavahi-gobject-dev
+Restrictions: allow-stderr, superficial
+Depends: build-essential, libavahi-gobject-dev, pkgconf
+
+Test-Command: debian/tests/build libavahi-ui-gtk3-dev
+Features: test-name=libavahi-ui-gtk3-dev
+Restrictions: allow-stderr, superficial
+Depends: build-essential, libavahi-ui-gtk3-dev, pkgconf

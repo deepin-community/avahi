@@ -15,6 +15,7 @@ N:   Packaging control files must be encoded in valid UTF-8.
 N:
 N:   Please convert the file to UTF-8 using iconv or a similar tool.
 (cherry picked from commit 7ed99620a748b07e3eb1db2f4b97fcee06a9e4e3)
+Origin: https://github.com/avahi/avahi/commit/7ed99620a748b07e3eb1db2f4b97fcee06a9e4e3
 ---
  avahi-common/domain.h | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)

@@ -14,4 +14,13 @@ Fix-encoding-of-avahi-common-domain.h-to-be-UTF-8.patch
 Avoid-infinite-loop-in-avahi-daemon-by-handling-HUP-event.patch
 dbus-Use-non-deprecated-installation-path.patch
 Emit-error-if-requested-service-is-not-found.patch
-Fix-avahi-browse-Invalid-service-type.patch
+avahi-discover-Fix-invalid-escape-sequences-593.patch
+core-make-sure-there-is-rdata-to-process-before-parsing-i.patch
+core-reject-overly-long-TXT-resource-records.patch
+tests-pass-overly-long-TXT-resource-records.patch
+Ensure-each-label-is-at-least-one-byte-long.patch
+core-extract-host-name-using-avahi_unescape_label.patch
+common-derive-alternative-host-name-from-its-unescaped-ve.patch
+core-no-longer-supply-bogus-services-to-callbacks.patch
+Stop-using-embedded-copy-of-sd-daemon.-c-h-and-use-libsys.patch
+avahi-daemon.conf-turn-off-wide-area.patch

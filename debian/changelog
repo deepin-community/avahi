@@ -1,8 +1,93 @@
-avahi (0.8-13deepin1) unstable; urgency=medium
+avahi (0.8-17) unstable; urgency=medium
 
-  * merge v20 patch, not enable when install.
+  * Team upload
 
- -- xinpeng.wang <wangxinpeng@uniontech.com>  Thu, 15 May 2025 16:55:44 +0800
+  [ Lukas Märdian ]
+  * d/t/local-resolve-service: Add non-superficial DEP-8 test, which
+    validates resolving of mDNS .local domains and service discovery
+
+  [ Simon McVittie ]
+  * d/control: Build-depend on gobject-introspection, gir1.2-*-dev.
+    libgirepository1.0-dev is non-multiarch-friendly and should be phased
+    out during the forky cycle.
+  * Add patch from upstream 0.9-rc2 to turn off wide-area by default.
+    (Mitigates: CVE-2024-52615, CVE-2024-52616, #1088110, #1088111)
+  * Standards-Version: 4.7.2 (no changes required)
+
+ -- Simon McVittie <smcv@debian.org>  Tue, 09 Sep 2025 10:24:58 +0100
+
+avahi (0.8-16) unstable; urgency=medium
+
+  * Stop using embedded copy of sd-daemon.{c,h} and use libsystemd instead.
+    Fixes build failures with LTO enabled.
+    This adds a Build-Depends on libsystemd-dev on linux-any.
+    Patch cherry-picked from upstream Git.
+
+ -- Michael Biebl <biebl@debian.org>  Sat, 04 Jan 2025 20:59:52 +0100
+
+avahi (0.8-15) unstable; urgency=medium
+
+  * Fix "Invalid service type" failures using an upstream patch.
+    The initial patch to address 'avahi-browse -a breaks with "Invalid service
+    type" if a device sends a malformed service' that was applied to Debian
+    was not accepted upstream but solved differently. Use that upstream patch
+    instead.
+  * Remove inactive Maintainers from Uploaders.
+    Thanks Loic and Sebastian!
+  * Add Origin metadata according to DEP-3 for patches that have been cherry
+    picked
+
+ -- Michael Biebl <biebl@debian.org>  Wed, 04 Dec 2024 14:50:18 +0100
+
+avahi (0.8-14) unstable; urgency=medium
+
+  [ Simon McVittie ]
+  * d/upstream/metadata: Add
+  * d/watch: Use Github releases API
+    (Closes: #1059615)
+  * d/watch.devel: Add a secondary watch file that downloads release
+    candidates.
+    This is not used by default by infrastructure (we don't necessarily want
+    to package every prerelease), but can be used via
+    `uscan --watchfile debian/watch.devel`.
+    Thanks to Marc Leeman
+  * d/gbp.conf: Update packaging branch to debian/latest as per DEP-14
+  * d/salsa-ci.yml: Add.
+    Disable the cross-build test for now, this will need some more thought
+    (perhaps building with nogir and/or nopython).
+
+  [ Michael Biebl ]
+  * Remove obsolete maintscript code from pre oldstable
+  * Cleanup runtime / state directories more thoroughly on package purge.
+    Those directories do not contain any valuable data that should be
+    preserved beyond a package purge. So simplify the cleanup and do it more
+    thoroughly by just removing all runtime and state files.
+    While at it, correct an old changelog entry which referenced a wrong
+    path. (Closes: #849454, #1051442)
+  * Bump Standards-Version to 4.7.0
+  * Drop isc-dhcp-client Recommends from avahi-autoipd.
+    ISC DHCP client is no longer actively maintained, so stop recommending
+    it. Still ship the integration hooks though for the time being.
+    (Closes: #1064500)
+  * avahi-discover: Fix invalid escape sequences.
+    Patch cherry-picked from upstream Git. (Closes: #1085347)
+  * core: make sure there is rdata to process before parsing it.
+    Patch cherry-picked from upstream Git.
+    (CVE-2023-38472, Closes: #1054879)
+  * core: reject overly long TXT resource records.
+    Patches cherry-picked from upstream Git.
+    (CVE-2023-38469, Closes: #1054876)
+  * Ensure each label is at least one byte long.
+    Patch cherry-picked from upstream Git.
+    (CVE-2023-38470, Closes: #1054877)
+  * core: extract host name using avahi_unescape_label()
+    Patch cherry-picked from upstream Git.
+    (CVE-2023-38471, Closes: #1054878)
+  * common: derive alternative host name from its unescaped version.
+    Patch cherry-picked from upstream Git.
+    (CVE-2023-38473, Closes: #1054880)
+
+ -- Michael Biebl <biebl@debian.org>  Sat, 30 Nov 2024 22:54:34 +0100
 
 avahi (0.8-13) unstable; urgency=medium
 
@@ -795,7 +880,7 @@ avahi (0.6.25-3) unstable; urgency=low
   * debian/avahi-daemon.postrm
     - Cleanup /var/run/avahi-daemon on "purge". (Closes: #448539)
   * debian/avahi-autoipd.postrm
-    - Cleanup /var/run/avahi-autoipd on "purge". (Closes: #527925)
+    - Cleanup /var/lib/avahi-autoipd on "purge". (Closes: #527925)
 
  -- Michael Biebl <biebl@debian.org>  Thu, 14 Jan 2010 00:47:50 +0100
 

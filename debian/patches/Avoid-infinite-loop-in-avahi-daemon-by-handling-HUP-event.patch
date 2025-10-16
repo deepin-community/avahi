@@ -16,6 +16,7 @@ without nothing being done, thus entering an infinite loop.
 See https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=984938
 
 (cherry picked from commit 447affe29991ee99c6b9732fc5f2c1048a611d3b)
+Origin: https://github.com/avahi/avahi/commit/447affe29991ee99c6b9732fc5f2c1048a611d3b
 ---
  avahi-daemon/simple-protocol.c | 5 +++++
  1 file changed, 5 insertions(+)

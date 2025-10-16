@@ -3,20 +3,20 @@ Section: net
 Priority: optional
 Maintainer: Utopia Maintenance Team <pkg-utopia-maintainers@lists.alioth.debian.org>
 Uploaders: Sjoerd Simons <sjoerd@debian.org>,
-           Sebastian Dröge <slomo@debian.org>,
-           Loic Minier <lool@dooz.org>,
            Michael Biebl <biebl@debian.org>
 Build-Depends: debhelper (>= 13.11.6~),
                debhelper-compat (= 13),
                dh-sequence-gir <!nogir>,
                dh-sequence-python3,
+               gir1.2-gobject-2.0-dev <!nogir>,
+               gobject-introspection (>= 1.80) <!nogir>,
                intltool,
                libcap-dev [linux-any],
+               libsystemd-dev [linux-any],
                libdaemon-dev,
                libdbus-1-dev,
                libexpat-dev,
                libgdbm-dev,
-               libgirepository1.0-dev <!nogir>,
                libglib2.0-dev,
                libgtk-3-dev <!pkg.avahi.nogui>,
                pkgconf,
@@ -27,7 +27,7 @@ Build-Depends: debhelper (>= 13.11.6~),
                python3-gi <!nopython>,
                xmltoman
 Rules-Requires-Root: no
-Standards-Version: 4.6.2
+Standards-Version: 4.7.2
 Vcs-Git: https://salsa.debian.org/utopia-team/avahi.git
 Vcs-Browser: https://salsa.debian.org/utopia-team/avahi
 Homepage: https://avahi.org/
@@ -77,8 +77,7 @@ Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends},
          ${misc:Depends},
          adduser
-Recommends: isc-dhcp-client,
-            iproute2
+Recommends: iproute2
 Description: Avahi IPv4LL network address configuration daemon
  Avahi is a fully LGPL framework for Multicast DNS Service Discovery.
  It allows programs to publish and discover services and hosts

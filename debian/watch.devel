@@ -1,0 +1,4 @@
+version=4
+opts="searchmode=plain,uversionmangle=s/-(alpha|beta|rc)/~$1/,filenamemangle=s/.+\/v?@ANY_VERSION@/avahi-$1\.tar\.gz/" \
+  https://api.github.com/repos/avahi/@PACKAGE@/tags \
+  https://api.github.com/repos/avahi/@PACKAGE@/tarball/refs/tags/v@ANY_VERSION@

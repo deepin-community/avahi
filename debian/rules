@@ -10,6 +10,7 @@ include /usr/share/dpkg/default.mk
 
 ifneq (linux,$(DEB_HOST_ARCH_OS))
 CONFFLAGS += \
+	--disable-libsystemd \
 	--disable-autoipd
 endif
 
@@ -73,5 +74,3 @@ override_dh_installdocs:
 
 override_dh_installchangelogs:
 	dh_installchangelogs -XChangeLog
-
-override_dh_installsystemd:

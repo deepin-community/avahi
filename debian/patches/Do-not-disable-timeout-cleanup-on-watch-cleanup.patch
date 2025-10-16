@@ -5,6 +5,8 @@ Subject: Do not disable timeout cleanup on watch cleanup
 This was causing timeouts to never be removed from the linked list that
 tracks them, resulting in both memory and CPU usage to grow larger over
 time.
+
+Origin: https://github.com/avahi/avahi/commit/b3ad387c74f20368f6dcf60f97d20a3bf8ba9782
 ---
  avahi-common/simple-watch.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)

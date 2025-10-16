@@ -1,0 +1,36 @@
+From: Martin <spleefer90@gmail.com>
+Date: Tue, 30 Apr 2024 14:13:46 +0200
+Subject: avahi-discover: Fix invalid escape sequences (#593)
+
+* avahi-discover: Fix invalid escape sequences
+
+Corrects
+```
+/usr/lib/python3.12/site-packages/avahi/ServiceTypeDatabase.py:98: SyntaxWarning: invalid escape sequence '\.'
+  if not re.search('_[a-zA-Z0-9-]+\._[a-zA-Z0-9-]+', key):
+/usr/lib/python3.12/site-packages/avahi/ServiceTypeDatabase.py:100: SyntaxWarning: invalid escape sequence '\.'
+  if re.search('_[a-zA-Z0-9-]+\._[a-zA-Z0-9-]+\[.*\]', key):
+```
+
+(cherry picked from commit caf03584278b33c5c60aa7182da4d44cc1d322bd)
+Origin: https://github.com/avahi/avahi/commit/caf03584278b33c5c60aa7182da4d44cc1d322bd
+---
+ avahi-python/avahi/ServiceTypeDatabase.py.in | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/avahi-python/avahi/ServiceTypeDatabase.py.in b/avahi-python/avahi/ServiceTypeDatabase.py.in
+index d7f9969..47422fe 100644
+--- a/avahi-python/avahi/ServiceTypeDatabase.py.in
++++ b/avahi-python/avahi/ServiceTypeDatabase.py.in
+@@ -95,9 +95,9 @@ class ServiceTypeDatabase:
+     def __iter__(self):
+ 
+         def want_key(key):
+-            if not re.search('_[a-zA-Z0-9-]+\._[a-zA-Z0-9-]+', key):
++            if not re.search(r'_[a-zA-Z0-9-]+\._[a-zA-Z0-9-]+', key):
+                 return False
+-            if re.search('_[a-zA-Z0-9-]+\._[a-zA-Z0-9-]+\[.*\]', key):
++            if re.search(r'_[a-zA-Z0-9-]+\._[a-zA-Z0-9-]+\[.*\]', key):
+                 return False
+             return True
+ 

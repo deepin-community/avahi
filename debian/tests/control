@@ -27,3 +27,7 @@ Test-Command: debian/tests/build libavahi-ui-gtk3-dev
 Features: test-name=libavahi-ui-gtk3-dev
 Restrictions: allow-stderr, superficial
 Depends: build-essential, libavahi-ui-gtk3-dev, pkgconf
+
+Tests: local-resolve-service
+Restrictions: needs-sudo
+Depends: avahi-daemon, avahi-utils, ipcalc, awk

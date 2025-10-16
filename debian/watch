@@ -1,2 +1,4 @@
 version=4
-https://avahi.org/download/@PACKAGE@@ANY_VERSION@@ARCHIVE_EXT@
+opts="searchmode=plain" \
+  https://api.github.com/repos/avahi/@PACKAGE@/releases \
+  https://github.com/avahi/@PACKAGE@/releases/download/v(?:\d[\d.]*)/@PACKAGE@@ANY_VERSION@@ARCHIVE_EXT@

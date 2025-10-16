@@ -1,0 +1,47 @@
+#!/bin/bash
+set -e
+
+function cleanup ()
+{
+    # delete files created by this test
+    rm -f out.txt
+    sudo rm -f /etc/avahi/services/dummy.service
+}
+trap cleanup EXIT
+
+# resolve an IPv4 .local name
+avahi-resolve -v -n -4  "$(hostname).local" > out.txt 2>&1
+cat out.txt
+grep "Server version: avahi" out.txt
+IP4=$(tail -n1 out.txt | awk '{ print $NF }')
+ipcalc -c $IP4 | grep "Address:"  # validates IP
+
+# resolve an IPv6 .local name
+avahi-resolve -v -n -6  "$(hostname).local" > out.txt 2>&1
+cat out.txt
+grep "Server version: avahi" out.txt
+IP6=$(tail -n1 out.txt | awk '{ print $NF }')
+ipcalc -c $IP6 | grep "Address:"  # validates IP
+
+# announce a dummy service
+cat <<EOF | sudo tee /etc/avahi/services/dummy.service
+<?xml version="1.0" standalone='no'?><!--*-nxml-*-->
+<!DOCTYPE service-group SYSTEM "avahi-service.dtd">
+<service-group>
+  <name replace-wildcards="yes">%h Dummy</name>
+  <service>
+    <type>_dummy._tcp</type>
+    <port>4242</port>
+    <txt-record>Autopkgtest dummy</txt-record>
+  </service>
+</service-group>
+EOF
+sudo systemctl reload avahi-daemon.service
+
+# search for the new dummy service
+avahi-browse -v -d local _dummy._tcp --resolve -t > out.txt 2>&1
+grep "hostname = \[$(hostname).local\]" out.txt
+grep "address = \[$IP6\]" out.txt
+grep "address = \[$IP4\]" out.txt
+grep "port = \[4242\]" out.txt
+grep "txt = \[\"Autopkgtest dummy\"\]" out.txt

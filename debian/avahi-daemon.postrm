@@ -13,9 +13,6 @@ if [ "$1" = "purge" ] ; then
     deluser --quiet --system avahi > /dev/null || true
     delgroup --quiet --system avahi > /dev/null || true
     # Cleanup /run/avahi-daemon, see #448539
-    f=/run/avahi-daemon
-    if [ -d "$f" ]; then
-        rmdir "$f" || { chown root:root "$f" && chmod 00700 "$f"; }
-    fi
+    rm -rf /run/avahi-daemon
 fi
 

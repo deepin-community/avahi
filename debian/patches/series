@@ -24,3 +24,8 @@ common-derive-alternative-host-name-from-its-unescaped-ve.patch
 core-no-longer-supply-bogus-services-to-callbacks.patch
 Stop-using-embedded-copy-of-sd-daemon.-c-h-and-use-libsys.patch
 avahi-daemon.conf-turn-off-wide-area.patch
+core-refuse-to-create-wide-area-record-browsers-when-wide.patch
+core-fix-DoS-bug-by-removing-incorrect-assertion.patch
+core-fix-DoS-bug-by-changing-assert-to-return.patch
+core-fix-uncontrolled-recursion-bug-using-a-simple-loop-d.patch
+Properly-randomize-query-id-of-DNS-packets.patch

@@ -1,9 +1,28 @@
-avahi (0.8-17deepin1) unstable; urgency=medium
+avahi (0.8-18) unstable; urgency=medium
 
-  * Apply changes from xinpeng.wang:
-    - merge v20 patch, not enable when install.
+  [ Simon McVittie ]
+  * d/copyright: Don't quote the FSF's former postal address here
 
- -- Tianyu Chen <sweetyfish@deepin.org>  Thu, 16 Oct 2025 14:16:02 +0800
+  [ Michael Biebl ]
+  * core: refuse to create wide-area record browsers when wide-area is off.
+    Patch cherry-picked from upstream Git
+    CVE-2025-68276 (Closes: #1125417)
+  * core: fix DoS bug by removing incorrect assertion.
+    Patch cherry-picked from upstream Git
+    CVE-2025-68468 (Closes: #1125418)
+  * core: fix DoS bug by changing assert to return.
+    Patch cherry-picked from upstream Git
+    CVE-2025-68471 (Closes: #1125419)
+  * core: fix uncontrolled recursion bug using a simple loop detection
+    algorithm.
+    Patch cherry-picked from upstream Git
+    CVE-2026-24401 (Closes: #1126342)
+  * Randomize transaction IDs in wide area queries.
+    Patch cherry-picked from upstream Git.
+    CVE-2024-52616 (Closes: #1088111)
+  * Bump Standards-Version to 4.7.3
+
+ -- Michael Biebl <biebl@debian.org>  Sun, 01 Feb 2026 16:54:47 +0100
 
 avahi (0.8-17) unstable; urgency=medium
 

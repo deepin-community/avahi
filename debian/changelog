@@ -1,5 +1,7 @@
 avahi (0.8-17deepin1) unstable; urgency=medium
 
+  * Mitigate CVE-2024-52615 and CVE-2024-52616 by turning off wide-area DNS by default.
+    (Patch avahi-daemon.conf-turn-off-wide-area.patch from upstream 0.9-rc2)
   * Apply changes from xinpeng.wang:
     - merge v20 patch, not enable when install.
 

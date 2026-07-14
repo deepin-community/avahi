@@ -1,3 +1,9 @@
+avahi (0.8-17deepin2) unstable; urgency=medium
+
+  * avahi-daemon enabled
+
+ -- LIU Li <liuli@uniontech.com>  Tue, 14 Jul 2026 09:34:56 +0800
+
 avahi (0.8-17deepin1) unstable; urgency=medium
 
   * Apply changes from xinpeng.wang:

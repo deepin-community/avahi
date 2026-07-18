@@ -1,3 +1,9 @@
+avahi (0.8-17deepin3) unstable; urgency=medium
+
+  * fix(cve): CVE-2026-24401
+
+ -- deepin-ci-robot <packages@deepin.org>  Sat, 18 Jul 2026 19:16:47 +0800
+
 avahi (0.8-17deepin2) unstable; urgency=medium
 
   * avahi-daemon enabled

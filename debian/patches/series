@@ -24,3 +24,6 @@ common-derive-alternative-host-name-from-its-unescaped-ve.patch
 core-no-longer-supply-bogus-services-to-callbacks.patch
 Stop-using-embedded-copy-of-sd-daemon.-c-h-and-use-libsys.patch
 avahi-daemon.conf-turn-off-wide-area.patch
+CVE-2026-24401.patch
+CVE-2025-68471.patch
+CVE-2025-68468.patch

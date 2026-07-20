@@ -1,3 +1,11 @@
+avahi (0.8-17deepin3) unstable; urgency=medium
+
+  * Backport upstream fix for CVE-2026-24401 via quilt patch:
+    core: fix uncontrolled recursion bug using a simple loop detection
+    algorithm
+
+ -- deepin-ci-robot <packages@deepin.org>  Sun, 19 Jul 2026 01:32:26 +0800
+
 avahi (0.8-17deepin2) unstable; urgency=medium
 
   * avahi-daemon enabled

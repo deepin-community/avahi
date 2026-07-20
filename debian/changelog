@@ -1,3 +1,9 @@
+avahi (0.8-17deepin5) unstable; urgency=medium
+
+  * fix(cve): CVE-2025-68468
+
+ -- deepin-ci-robot <packages@deepin.org>  Tue, 21 Jul 2026 05:39:43 +0800
+
 avahi (0.8-17deepin4) unstable; urgency=medium
 
   * fix(cve): CVE-2025-68471

@@ -27,3 +27,4 @@ avahi-daemon.conf-turn-off-wide-area.patch
 CVE-2026-24401.patch
 CVE-2025-68471.patch
 CVE-2025-68468.patch
+CVE-2025-68276.patch

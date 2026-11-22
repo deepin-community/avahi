@@ -1,6 +1,10 @@
 avahi (0.8-17deepin3) unstable; urgency=medium
 
   * Rebuild with LTO enabled (dpkg vendor feature optimize/lto).
+  * fix(cve): CVE-2026-59987 (medium) - common: make sure valid domain
+    names can be normalized   Upstream:
+    https://github.com/avahi/avahi/commit/cfeef2a28e260c67caac4b88440729
+    c744cb24b6
 
  -- tunaichao <tunaichao@uniontech.com>  Fri, 11 Sep 2026 10:00:51 +0800
 

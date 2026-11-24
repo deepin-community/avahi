@@ -5,6 +5,10 @@ avahi (0.8-17deepin3) unstable; urgency=medium
     names can be normalized   Upstream:
     https://github.com/avahi/avahi/commit/cfeef2a28e260c67caac4b88440729
     c744cb24b6
+  * fix(cve): CVE-2026-59987 (medium) - common: bail out when escaped
+    labels can't fit into ret   Upstream:
+    https://github.com/avahi/avahi/commit/20dec84b2480821704258bc908e7b2
+    bd2e883b24
   * fix(cve): CVE-2026-34933 (medium) - core: refuse to accept publish
     flags where both wide_area and multicast are set   Upstream:
     https://github.com/avahi/avahi/commit/0be89b6bb5c3983837b5e0febcbbbf

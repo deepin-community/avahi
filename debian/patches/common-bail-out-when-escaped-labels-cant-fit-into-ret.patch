@@ -1,0 +1,26 @@
+Description: common: bail out when escaped labels can't fit into ret
+ Fixes an out-of-bounds read (and a truncated/garbage normalized name) when
+ avahi_escape_label() fails because the escaped label does not fit into the
+ remaining buffer: avahi_normalize_name() ignored the failure, returned a
+ non-NULL but unterminated buffer, and avahi_normalize_name_strdup() then ran
+ strlen() past it.  This is a follow-up to 94cb648 ("Ensure each label is at
+ least one byte long") and makes the CVE-2026-59987 guard effective for names
+ whose escaped form overflows while still ending on a label boundary.
+Author: Evgeny Vereshchagin <evvers@ya.ru>
+Origin: https://github.com/avahi/avahi/commit/20dec84b2480821704258bc908e7b2bd2e883b24
+Last-Update: 2026-11-24
+---
+diff --git a/avahi-common/domain.c b/avahi-common/domain.c
+index 3b1ab68..f547453 100644
+--- a/avahi-common/domain.c
++++ b/avahi-common/domain.c
+@@ -210,7 +210,8 @@ char *avahi_normalize_name(const char *s, char *ret_s, size_t size) {
+         } else
+             empty = 0;
+ 
+-        avahi_escape_label(label, strlen(label), &r, &size);
++        if (!(avahi_escape_label(label, strlen(label), &r, &size)))
++            return NULL;
+     }
+ 
+     return ret_s;
